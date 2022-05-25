@@ -12,6 +12,8 @@
   <link rel="stylesheet" href="assets/css/plugins.css">
   <link rel="stylesheet" href="assets/css/style.css">
   <link rel="preload" href="assets/css/fonts/dm.css" as="style" onload="this.rel='stylesheet'">
+  <link rel="stylesheet" type="text/css" href="./assets/css/notie.css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
 </head>
 
 <body>
@@ -124,7 +126,7 @@
                     <div class="invalid-feedback"> Please enter your phone number. </div>
                   </div>
                 </div>
-                <!-- /column -->
+                 
                 <div class="col-12">
                     <div class="form-floating mb-4">
                       <textarea id="form_message" name="address" class="form-control" placeholder="Your message" style="height: 150px" required></textarea>
@@ -133,7 +135,7 @@
                       <div class="invalid-feedback"> Please enter your address. </div>
                     </div>
                   </div>
-                <!-- /column -->
+                 
                 <div class="col-12">
                     <div class="form-floating mb-4">
                       <textarea id="form_message" name="wayBillAddress" class="form-control" placeholder="Your message" style="height: 150px" required></textarea>
@@ -142,6 +144,7 @@
                       <div class="invalid-feedback"> Please enter your address. </div>
                     </div>
                   </div>
+                  
                   <div class="col-md-6">
                     <div class="form-floating mb-4">
                       <input id="form_name" type="text" name="managerName" class="form-control" placeholder="Manager Name" required>
@@ -150,7 +153,7 @@
                       <div class="invalid-feedback"> Please enter your manager name. </div>
                     </div>
                   </div>
-                  <!-- /column -->
+                   
                   <div class="col-md-6">
                     <div class="form-floating mb-4">
                       <input id="form_phone" type="tel" name="nic" class="form-control" placeholder="NIC" required>
@@ -159,7 +162,7 @@
                       <div class="invalid-feedback"> Please enter your NIC number. </div>
                     </div>
                   </div>
-                <!-- /column -->
+                 
                 <div class="col-md-6">
                   <div class="form-floating mb-4">
                     <input id="form_email" type="email" name="email" class="form-control" placeholder="jane.doe@example.com" required>
@@ -168,7 +171,7 @@
                     <div class="invalid-feedback"> Please provide a valid email address. </div>
                   </div>
                 </div>
-                <!-- /column -->
+                 
                 <div class="col-md-6">
                   <div class="form-select-wrapper mb-4">
                     <select class="form-select" id="form-select" name="courierService" required>
@@ -180,6 +183,7 @@
                     <div class="invalid-feedback"> Please select a Courier Service. </div>
                   </div>
                 </div>
+                
                 <div class="col-md-6">
                     <div class="form-select-wrapper mb-4">
                       <select class="form-select" id="form-select" name="storeType" required>
@@ -194,6 +198,7 @@
                       <div class="invalid-feedback"> Please select a department. </div>
                     </div>
                 </div>
+                
                 <div class="col-md-6">
                     <div class="form-select-wrapper mb-4">
                       <select class="form-select" id="form-select" name="tier" required>
@@ -206,7 +211,8 @@
                       <div class="invalid-feedback"> Please select a department. </div>
                     </div>
                   </div>
-                  <div class="col-md-12">
+                  
+                  <div class="col-md-6">
                     <div class="form-select-wrapper mb-4">
                       <select class="form-select" id="form-select" name="confirmation" required>
                         <option selected disabled value="">Order Confirmation</option>
@@ -217,7 +223,16 @@
                       <div class="invalid-feedback"> Please select a department. </div>
                     </div>
                   </div>
-                <!-- /column -->
+                  
+                  <div class="col-md-6">
+                    <div class="form-floating mb-4">
+                      <input id="form_phone" type="time" name="pickupTime" class="form-control" required>
+                      <label for="form_phone">Pickup time *</label>
+                      <div class="valid-feedback"> Looks good! </div>
+                      <div class="invalid-feedback"> Please enter Pick up time. </div>
+                    </div>
+                  </div>
+                 
                 <div class="col-12">
                   <div class="form-floating mb-4">
                     <textarea id="form_message" name="description" class="form-control" placeholder="Your message" style="height: 150px" required></textarea>
@@ -226,6 +241,7 @@
                     <div class="invalid-feedback"> Please enter description. </div>
                   </div>
                 </div>
+                
                 <div class="col-12">
                     <div class="form-floating mb-4">
                       <textarea id="form_message" name="bankDetails" class="form-control" placeholder="Your message" style="height: 150px" required></textarea>
@@ -234,6 +250,7 @@
                       <div class="invalid-feedback"> Please enter bank details. </div>
                     </div>
                 </div>
+                
                 <div class="col-12">
                     <div class="form-floating mb-4">
                       <textarea id="form_message" name="rates" class="form-control" placeholder="Your message" style="height: 150px" required></textarea>
@@ -242,6 +259,7 @@
                       <div class="invalid-feedback"> Please enter rates. </div>
                     </div>
                   </div>
+                  
                 <div class="col-12">
                     <div class="form-floating mb-4">
                       <textarea id="form_message" name="cod" class="form-control" placeholder="Your message" style="height: 150px" required></textarea>
@@ -343,24 +361,41 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script>
   $(document).ready(function(){
-  $('#submit-btn').click(function(event){
-   // console.log('submitted')
-    event.preventDefault();
-    $.ajax({
+  $("#signup").on("submit", function(e){
+      e.preventDefault();
+      $.ajax({
       type : "POST",
       url : "mail.php",
       data : $("#signup").serialize(),
       success : function(data){
-        alert("Success! Our team will contact you soon");
-        window.location.href="https://ezship.io";
+       success();
+       $('#contact-form-id').fadeOut(1000);
+       
 
-        console.log(data)
-      }
+      },
+    error:function(){
+        error();
+    }
   })
-  });
+ 
+    
+  })
 });
     
 </script>
+<script src="./assets/js/notie.js"></script>
+    <script>
+      notie.setOptions({
+        alertTime: 2
+      })
+
+      function success () {
+        notie.alert({ type: 1, text: 'Success!', time: 2 })
+      }
+      function error () {
+        notie.alert({ type: 3, text: 'Error. Please fill all fields', time: 2 })
+      }
+    </script>
 </body>
 
 </html>
